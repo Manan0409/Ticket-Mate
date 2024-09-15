@@ -1,0 +1,129 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vintage Car Museum</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Adjustments for layout and design */
+        .header-img {
+            background-image: url('https://images.unsplash.com/photo-1517994112540-009c47ea476b');
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+        }
+        .exhibit-card {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .exhibit-item {
+            flex: 1 1 calc(33% - 20px);
+            margin: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .chatbot-button {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+        }
+    </style>
+</head>
+<body class="bg-black text-white font-roboto">
+    <header class="bg-black text-white p-4 shadow-md">
+        <nav class="container mx-auto flex justify-between items-center">
+            <h1 class="text-3xl font-playfair font-bold">Vintage Car Museum</h1>
+            <ul class="hidden md:flex space-x-6">
+                <li><a href="#home" class="hover:text-gray-400 transition duration-300">Home</a></li>
+                <li><a href="#about" class="hover:text-gray-400 transition duration-300">About Us</a></li>
+                <li><a href="#exhibits" class="hover:text-gray-400 transition duration-300">Exhibits</a></li>
+                <li><a href="#contact" class="hover:text-gray-400 transition duration-300">Contact Us</a></li>
+            </ul>
+            <button class="md:hidden text-2xl">☰</button>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="header-img py-20 text-white text-center">
+            <h2 class="text-5xl font-playfair font-bold">Ticket Mate</h2>
+            <p class="text-xl mb-8">Step back in time and experience the golden age of automobiles</p>
+            <a href="#exhibits" class="bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded-full">View Exhibits</a>
+        </section>
+
+        <section id="about" class="py-16 bg-black">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-playfair font-bold mb-8 text-center">About Us</h2>
+                <p class="text-lg text-center mb-6">Our museum is dedicated to preserving and showcasing the rich history of vintage automobiles.</p>
+                <p class="text-lg text-center ">From classic American muscle cars to elegant European roadsters, our exhibits celebrate the artistry of automotive history.</p>
+            </div>
+        </section>
+
+        <section id="exhibits" class="py-16">
+            <div class="container mx-auto">
+                <h2 class="text-4xl font-playfair font-bold mb-8 text-center">Our Exhibits</h2>
+                <div class="exhibit-card">
+                    <div class="exhibit-item">
+                        <img src="Car_1.jpg" alt="Vintage Car 1">
+                        <div class="p-4">
+                            <h3 class="font-bold text-xl">1957 Chevrolet Bel Air</h3>
+                            <p>An icon of 1950s American automotive design.</p>
+                        </div>
+                    </div>
+                    <div class="exhibit-item">
+                        <img src="Car_2.jpg" alt="Vintage Car 2">
+                        <div class="p-4">
+                            <h3 class="font-bold text-xl">1965 Ford Mustang</h3>
+                            <p>The car that defined the pony car class.</p>
+                        </div>
+                    </div>
+                    <div class="exhibit-item">
+                        <img src="Car_3.jpg" alt="Vintage Car 3">
+                        <div class="p-4">
+                            <h3 class="font-bold text-xl">1963 Jaguar E-Type</h3>
+                            <p>Enzo Ferrari called it "the most beautiful car ever made."</p>
+                        </div>
+                    </div>
+                    <!-- Add more items similarly -->
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-16 bg-black text-white">
+            <div class="container mx-auto">
+                <h2 class="text-4xl font-playfair font-bold mb-8 text-center">Contact Us</h2>
+                <p class="text-center">123 Vintage Rd, Classic City, VC 12345</p>
+                <p class="text-center">Phone: 6353918052</p>
+                <p class="text-center">Email: meethp04@gmail.com</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Voiceflow Chatbot Integration -->
+    <div class="chat-widget">
+        <script type="text/javascript">
+            (function(d, t) {
+                var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+                v.onload = function() {
+                  window.voiceflow.chat.load({
+                    verify: { projectID: '66dd9c4cd8e20c0b54ac0d8e' },
+                    url: 'https://general-runtime.voiceflow.com',
+                    versionID: 'production'
+                  });
+                }
+                v.src = "https://cdn.voiceflow.com/widget/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+            })(document, 'script');
+          </script>
+    </div>
+    <div>
+    </div>
+
+    <footer class="bg-black text-white py-8">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2023 Vintage Car Museum. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
