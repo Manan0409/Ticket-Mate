@@ -7,93 +7,446 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        /* Adjustments for layout and design */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Header with glassmorphism effect */
+        header {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: slideDown 0.5s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        h1 {
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+        }
+        
+        nav a {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #FFD700, #FFA500);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero section with enhanced styling */
         .header-img {
-            background-image: url('https://images.unsplash.com/photo-1517994112540-009c47ea476b');
-            height: 400px;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1517994112540-009c47ea476b');
+            height: 600px;
             background-size: cover;
             background-position: center;
-        }
-        .exhibit-card {
+            background-attachment: fixed;
             display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
         }
+        
+        .header-img::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+        }
+        
+        .header-img > * {
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .header-img h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #FFD700, #FFA500, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 40px rgba(255, 215, 0, 0.5);
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+        
+        .header-img p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+        
+        .header-img a {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #000;
+            font-weight: 700;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+            animation: fadeInUp 1s ease-out 0.6s both;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-img a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .header-img a:hover::before {
+            left: 100%;
+        }
+        
+        .header-img a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.5);
+        }
+        
+        /* Section styling */
+        section {
+            padding: 5rem 0;
+            position: relative;
+        }
+        
+        section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            display: inline-block;
+        }
+        
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #FFD700, #FFA500);
+            border-radius: 2px;
+        }
+        
+        #about {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            position: relative;
+        }
+        
+        #about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent);
+        }
+        
+        #about p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #d1d1d1;
+            max-width: 800px;
+            margin: 0 auto 1.5rem;
+        }
+        
+        /* Exhibit cards with modern design */
+        .exhibit-card {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+        
         .exhibit-item {
-            flex: 1 1 calc(33% - 20px);
-            margin: 10px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
         }
-        .chatbot-button {
-            position: fixed;
-            bottom: 15px;
-            right: 15px;
+        
+        .exhibit-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .exhibit-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(255, 215, 0, 0.3);
+            border-color: rgba(255, 215, 0, 0.5);
+        }
+        
+        .exhibit-item:hover::before {
+            opacity: 1;
+        }
+        
+        .exhibit-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        
+        .exhibit-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .exhibit-item .p-4 {
+            padding: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .exhibit-item h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #FFD700;
+        }
+        
+        .exhibit-item p {
+            color: #d1d1d1;
+            line-height: 1.6;
+        }
+        
+        /* Contact section */
+        #contact {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            position: relative;
+        }
+        
+        #contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent);
+        }
+        
+        #contact p {
+            font-size: 1.1rem;
+            margin: 0.8rem 0;
+            color: #d1d1d1;
+            transition: color 0.3s ease;
+        }
+        
+        #contact p:hover {
+            color: #FFD700;
+        }
+        
+        /* Footer */
+        footer {
+            background: #000;
+            border-top: 1px solid rgba(255, 215, 0, 0.2);
+            padding: 2rem 0;
+        }
+        
+        footer p {
+            color: #888;
+        }
+        
+        /* Mobile menu button */
+        .menu-btn {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #000;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .header-img h2 {
+                font-size: 2.5rem;
+            }
+            
+            .header-img p {
+                font-size: 1.1rem;
+            }
+            
+            section h2 {
+                font-size: 2rem;
+            }
+            
+            .exhibit-card {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
-<body class="bg-black text-white font-roboto">
-    <header class="bg-black text-white p-4 shadow-md">
+<body>
+    <header class="p-4 shadow-md">
         <nav class="container mx-auto flex justify-between items-center">
-            <h1 class="text-3xl font-playfair font-bold">Vintage Car Museum</h1>
+            <h1 class="text-3xl font-bold">Vintage Car Museum</h1>
             <ul class="hidden md:flex space-x-6">
                 <li><a href="#home" class="hover:text-gray-400 transition duration-300">Home</a></li>
                 <li><a href="#about" class="hover:text-gray-400 transition duration-300">About Us</a></li>
                 <li><a href="#exhibits" class="hover:text-gray-400 transition duration-300">Exhibits</a></li>
                 <li><a href="#contact" class="hover:text-gray-400 transition duration-300">Contact Us</a></li>
             </ul>
-            <button class="md:hidden text-2xl">☰</button>
+            <button class="md:hidden menu-btn">☰</button>
         </nav>
     </header>
 
     <main>
-        <section id="home" class="header-img py-20 text-white text-center">
-            <h2 class="text-5xl font-playfair font-bold">Ticket Mate</h2>
-            <p class="text-xl mb-8">Step back in time and experience the golden age of automobiles</p>
-            <a href="#exhibits" class="bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded-full">View Exhibits</a>
+        <section id="home" class="header-img">
+            <h2>Ticket Mate</h2>
+            <p>Step back in time and experience the golden age of automobiles</p>
+            <a href="#exhibits">View Exhibits</a>
         </section>
 
-        <section id="about" class="py-16 bg-black">
+        <section id="about">
             <div class="container mx-auto px-4">
-                <h2 class="text-4xl font-playfair font-bold mb-8 text-center">About Us</h2>
-                <p class="text-lg text-center mb-6">Our museum is dedicated to preserving and showcasing the rich history of vintage automobiles.</p>
-                <p class="text-lg text-center ">From classic American muscle cars to elegant European roadsters, our exhibits celebrate the artistry of automotive history.</p>
+                <div class="text-center">
+                    <h2>About Us</h2>
+                </div>
+                <p class="fade-in">Our museum is dedicated to preserving and showcasing the rich history of vintage automobiles.</p>
+                <p class="fade-in">From classic American muscle cars to elegant European roadsters, our exhibits celebrate the artistry of automotive history.</p>
             </div>
         </section>
 
-        <section id="exhibits" class="py-16">
+        <section id="exhibits">
             <div class="container mx-auto">
-                <h2 class="text-4xl font-playfair font-bold mb-8 text-center">Our Exhibits</h2>
+                <div class="text-center">
+                    <h2>Our Exhibits</h2>
+                </div>
                 <div class="exhibit-card">
-                    <div class="exhibit-item">
+                    <div class="exhibit-item fade-in">
                         <img src="Car_1.jpg" alt="Vintage Car 1">
                         <div class="p-4">
-                            <h3 class="font-bold text-xl">1957 Chevrolet Bel Air</h3>
+                            <h3>1957 Chevrolet Bel Air</h3>
                             <p>An icon of 1950s American automotive design.</p>
                         </div>
                     </div>
-                    <div class="exhibit-item">
+                    <div class="exhibit-item fade-in">
                         <img src="Car_2.jpg" alt="Vintage Car 2">
                         <div class="p-4">
-                            <h3 class="font-bold text-xl">1965 Ford Mustang</h3>
+                            <h3>1965 Ford Mustang</h3>
                             <p>The car that defined the pony car class.</p>
                         </div>
                     </div>
-                    <div class="exhibit-item">
+                    <div class="exhibit-item fade-in">
                         <img src="Car_3.jpg" alt="Vintage Car 3">
                         <div class="p-4">
-                            <h3 class="font-bold text-xl">1963 Jaguar E-Type</h3>
+                            <h3>1963 Jaguar E-Type</h3>
                             <p>Enzo Ferrari called it "the most beautiful car ever made."</p>
                         </div>
                     </div>
-                    <!-- Add more items similarly -->
                 </div>
             </div>
         </section>
 
-        <section id="contact" class="py-16 bg-black text-white">
+        <section id="contact">
             <div class="container mx-auto">
-                <h2 class="text-4xl font-playfair font-bold mb-8 text-center">Contact Us</h2>
+                <div class="text-center">
+                    <h2>Contact Us</h2>
+                </div>
                 <p class="text-center">123 Vintage Rd, Classic City, VC 12345</p>
                 <p class="text-center">Phone: 6353918052</p>
                 <p class="text-center">Email: meethp04@gmail.com</p>
@@ -103,31 +456,62 @@
 
     <!-- Voiceflow Chatbot Integration -->
     <div class="chat-widget">
-<script type="text/javascript">
-  (function(d, t) {
-      var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
-      v.onload = function() {
-        window.voiceflow.chat.load({
-          verify: { projectID: '66dd9c4cd8e20c0b54ac0d8e' },
-          url: 'https://general-runtime.voiceflow.com',
-          versionID: 'production',
-          voice: {
-            url: "https://runtime-api.voiceflow.com"
-          }
-        });
-      }
-      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
-  })(document, 'script');
-</script>
-    </div>
-    <div>
+        <script type="text/javascript">
+          (function(d, t) {
+              var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+              v.onload = function() {
+                window.voiceflow.chat.load({
+                  verify: { projectID: '66dd9c4cd8e20c0b54ac0d8e' },
+                  url: 'https://general-runtime.voiceflow.com',
+                  versionID: 'production',
+                  voice: {
+                    url: "https://runtime-api.voiceflow.com"
+                  }
+                });
+              }
+              v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+          })(document, 'script');
+        </script>
     </div>
 
-    <footer class="bg-black text-white py-8">
+    <footer>
         <div class="container mx-auto text-center">
             <p>&copy; 2023 Vintage Car Museum. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        // Scroll animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Mobile menu toggle
+        const menuBtn = document.querySelector('.menu-btn');
+        const navList = document.querySelector('nav ul');
+        
+        menuBtn.addEventListener('click', () => {
+            navList.classList.toggle('hidden');
+            navList.classList.toggle('flex');
+            navList.classList.toggle('flex-col');
+            navList.classList.toggle('absolute');
+            navList.classList.toggle('top-16');
+            navList.classList.toggle('right-4');
+            navList.classList.toggle('bg-black');
+            navList.classList.toggle('p-4');
+            navList.classList.toggle('rounded-lg');
+            navList.classList.toggle('shadow-lg');
+        });
+    </script>
 </body>
 </html>
-
