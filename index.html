@@ -1,1036 +1,580 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vintage Car Museum | Timeless Motion</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #111111;
-      --bg-soft: #181818;
-      --panel: #1f1f1f;
-      --panel-2: #262626;
-      --ivory: #f5f0e8;
-      --muted: #c8bfb3;
-      --text: #f3eee7;
-      --line: rgba(255,255,255,0.08);
-      --bronze: #b8894a;
-      --bronze-soft: #d4a96a;
-      --green: #2f5d50;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(184, 137, 74, 0.08), transparent 30%),
-        radial-gradient(circle at bottom right, rgba(47, 93, 80, 0.10), transparent 28%),
-        linear-gradient(180deg, #0c0c0c 0%, #111111 100%);
-      color: var(--text);
-      overflow-x: hidden;
-    }
-
-    h1, h2, h3, h4 {
-      font-family: 'Cormorant Garamond', serif;
-      letter-spacing: 0.2px;
-    }
-
-    a {
-      text-decoration: none;
-    }
-
-    .section-pad {
-      padding: 5.5rem 0;
-    }
-
-    .section-title {
-      font-size: clamp(2rem, 4vw, 3.4rem);
-      line-height: 1;
-      color: var(--ivory);
-      margin-bottom: 1rem;
-    }
-
-    .section-subtitle {
-      color: var(--muted);
-      max-width: 720px;
-      line-height: 1.7;
-      font-size: 1rem;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: rgba(12, 12, 12, 0.72);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--line);
-      transition: all 0.3s ease;
-    }
-
-    .brand-mark {
-      width: 42px;
-      height: 42px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, var(--bronze), var(--bronze-soft));
-      display: grid;
-      place-items: center;
-      color: #111;
-      font-weight: 700;
-      box-shadow: 0 8px 24px rgba(184, 137, 74, 0.25);
-    }
-
-    .nav-link {
-      color: #e7ded2;
-      position: relative;
-      transition: color 0.25s ease;
-    }
-
-    .nav-link:hover {
-      color: #fff;
-    }
-
-    .nav-link::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -7px;
-      width: 0;
-      height: 1.5px;
-      background: linear-gradient(90deg, var(--bronze), var(--bronze-soft));
-      transition: width 0.3s ease;
-    }
-
-    .nav-link:hover::after {
-      width: 100%;
-    }
-
-    .btn-primary,
-    .btn-secondary,
-    .btn-ghost {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.55rem;
-      padding: 0.95rem 1.45rem;
-      border-radius: 999px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--bronze), var(--bronze-soft));
-      color: #111;
-      box-shadow: 0 12px 30px rgba(184, 137, 74, 0.24);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 36px rgba(184, 137, 74, 0.32);
-    }
-
-    .btn-secondary {
-      border: 1px solid rgba(245, 240, 232, 0.18);
-      color: var(--ivory);
-      background: rgba(255,255,255,0.03);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255,255,255,0.07);
-      transform: translateY(-2px);
-    }
-
-    .btn-ghost {
-      color: var(--muted);
-      padding-left: 0;
-      padding-right: 0;
-    }
-
-    .btn-ghost:hover {
-      color: var(--ivory);
-    }
-
-    .hero {
-      position: relative;
-      min-height: 92vh;
-      display: flex;
-      align-items: center;
-      overflow: hidden;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(90deg, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.72) 42%, rgba(10,10,10,0.28) 100%),
-        url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1600&q=80');
-      background-size: cover;
-      background-position: center;
-      transform: scale(1.03);
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(17,17,17,0.2) 0%, rgba(17,17,17,0.75) 100%);
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--bronze-soft);
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      font-size: 0.8rem;
-      font-weight: 600;
-      margin-bottom: 1.2rem;
-    }
-
-    .eyebrow::before {
-      content: "";
-      width: 34px;
-      height: 1px;
-      background: var(--bronze);
-    }
-
-    .hero h2 {
-      font-size: clamp(3rem, 7vw, 5.7rem);
-      line-height: 0.92;
-      max-width: 800px;
-      color: var(--ivory);
-      margin-bottom: 1.3rem;
-    }
-
-    .hero p {
-      max-width: 650px;
-      color: #ddd2c4;
-      font-size: 1.1rem;
-      line-height: 1.8;
-      margin-bottom: 2rem;
-    }
-
-    .hero-stats {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 1rem;
-      margin-top: 2.5rem;
-      max-width: 900px;
-    }
-
-    .stat-card {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
-      backdrop-filter: blur(10px);
-      border-radius: 18px;
-      padding: 1rem 1rem;
-    }
-
-    .stat-card h4 {
-      font-size: 1.8rem;
-      color: var(--ivory);
-      margin-bottom: 0.2rem;
-    }
-
-    .stat-card p {
-      margin: 0;
-      font-size: 0.9rem;
-      line-height: 1.4;
-      color: var(--muted);
-    }
-
-    .quick-actions {
-      margin-top: -42px;
-      position: relative;
-      z-index: 5;
-    }
-
-    .quick-bar {
-      background: linear-gradient(180deg, rgba(36,36,36,0.95), rgba(24,24,24,0.95));
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      padding: 1rem;
-      box-shadow: 0 18px 40px rgba(0,0,0,0.35);
-    }
-
-    .quick-item {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 18px;
-      padding: 1rem 1.1rem;
-      transition: all 0.3s ease;
-      height: 100%;
-    }
-
-    .quick-item:hover {
-      transform: translateY(-3px);
-      border-color: rgba(184, 137, 74, 0.35);
-      background: rgba(255,255,255,0.05);
-    }
-
-    .quick-item span {
-      display: block;
-      color: var(--muted);
-      font-size: 0.88rem;
-      margin-top: 0.25rem;
-    }
-
-    .split-card,
-    .info-card,
-    .collection-card,
-    .event-card,
-    .testimonial-card,
-    .contact-card {
-      background: linear-gradient(180deg, rgba(33,33,33,0.9), rgba(23,23,23,0.96));
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
-    }
-
-    .image-fill {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .feature-chip {
-      display: inline-block;
-      border: 1px solid rgba(184,137,74,0.28);
-      color: var(--bronze-soft);
-      background: rgba(184,137,74,0.08);
-      padding: 0.45rem 0.8rem;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      margin: 0.35rem 0.35rem 0 0;
-    }
-
-    .collection-card img {
-      width: 100%;
-      height: 280px;
-      object-fit: cover;
-      transition: transform 0.45s ease;
-    }
-
-    .collection-card:hover img {
-      transform: scale(1.05);
-    }
-
-    .collection-card .content {
-      padding: 1.35rem;
-    }
-
-    .label {
-      color: var(--bronze-soft);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-size: 0.78rem;
-      font-weight: 600;
-    }
-
-    .story-section {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .story-panel {
-      background:
-        linear-gradient(90deg, rgba(14,14,14,0.92) 0%, rgba(14,14,14,0.74) 45%, rgba(14,14,14,0.48) 100%),
-        url('https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1600&q=80');
-      background-size: cover;
-      background-position: center;
-      border-radius: 28px;
-      border: 1px solid var(--line);
-      min-height: 420px;
-      display: flex;
-      align-items: center;
-      padding: 3rem;
-    }
-
-    .story-panel blockquote {
-      font-size: clamp(1.7rem, 3vw, 2.7rem);
-      line-height: 1.15;
-      color: var(--ivory);
-      max-width: 720px;
-      margin-bottom: 1rem;
-    }
-
-    .story-panel p {
-      color: #ddd2c4;
-      max-width: 650px;
-      line-height: 1.8;
-    }
-
-    .assistant-panel {
-      background:
-        radial-gradient(circle at top right, rgba(184,137,74,0.14), transparent 30%),
-        linear-gradient(180deg, rgba(31,31,31,1), rgba(22,22,22,1));
-      border: 1px solid var(--line);
-      border-radius: 28px;
-      overflow: hidden;
-    }
-
-    .assistant-mini {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 18px;
-      padding: 1rem;
-    }
-
-    .assistant-bubble {
-      border-radius: 16px;
-      padding: 0.9rem 1rem;
-      margin-bottom: 0.7rem;
-      max-width: 92%;
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-
-    .assistant-bubble.user {
-      background: rgba(255,255,255,0.06);
-      color: var(--ivory);
-      margin-left: auto;
-    }
-
-    .assistant-bubble.bot {
-      background: rgba(184,137,74,0.11);
-      color: #f2e8db;
-      border: 1px solid rgba(184,137,74,0.18);
-    }
-
-    .plan-grid .info-card,
-    .events-grid .event-card,
-    .testimonials-grid .testimonial-card {
-      height: 100%;
-    }
-
-    .info-card,
-    .event-card,
-    .testimonial-card,
-    .contact-card {
-      padding: 1.35rem;
-    }
-
-    .icon-circle {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      background: rgba(184,137,74,0.12);
-      color: var(--bronze-soft);
-      border: 1px solid rgba(184,137,74,0.22);
-      margin-bottom: 1rem;
-      font-size: 1.1rem;
-    }
-
-    .muted {
-      color: var(--muted);
-      line-height: 1.75;
-    }
-
-    .quote-mark {
-      font-size: 3rem;
-      color: var(--bronze-soft);
-      line-height: 1;
-      opacity: 0.8;
-    }
-
-    footer {
-      border-top: 1px solid var(--line);
-      background: #0d0d0d;
-    }
-
-    .footer-link {
-      color: var(--muted);
-      transition: color 0.25s ease;
-    }
-
-    .footer-link:hover {
-      color: var(--ivory);
-    }
-
-    .fade-in {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .mobile-menu {
-      display: none;
-    }
-
-    @media (max-width: 991px) {
-      .hero-stats {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 768px) {
-      .section-pad {
-        padding: 4rem 0;
-      }
-
-      .hero {
-        min-height: auto;
-        padding: 5.5rem 0 4rem;
-      }
-
-      .hero::before {
-        background-position: 62% center;
-      }
-
-      .hero p {
-        font-size: 1rem;
-      }
-
-      .hero-stats {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .quick-actions {
-        margin-top: -24px;
-      }
-
-      .mobile-menu.show {
-        display: flex;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .hero h2 {
-        font-size: 2.8rem;
-      }
-
-      .hero-stats {
-        grid-template-columns: 1fr;
-      }
-
-      .story-panel {
-        padding: 2rem 1.25rem;
-      }
-    }
-  </style>
-</head>
-<body>
-
-  <header class="px-4 py-4">
-    <nav class="container mx-auto flex items-center justify-between gap-4">
-      <a href="#home" class="flex items-center gap-3">
-        <div class="brand-mark">VC</div>
-        <div>
-          <h1 class="text-2xl md:text-3xl font-semibold text-[var(--ivory)] leading-none">Vintage Car Museum</h1>
-          <p class="text-xs tracking-[0.25em] uppercase text-[var(--muted)] mt-1">Timeless Motion</p>
-        </div>
-      </a>
-
-      <ul class="hidden md:flex items-center gap-8">
-        <li><a href="#home" class="nav-link">Home</a></li>
-        <li><a href="#collection" class="nav-link">Collection</a></li>
-        <li><a href="#visit" class="nav-link">Plan Your Visit</a></li>
-        <li><a href="#events" class="nav-link">Events</a></li>
-        <li><a href="#contact" class="nav-link">Contact</a></li>
-      </ul>
-
-      <div class="hidden md:flex items-center gap-3">
-        <a href="#assistant" class="btn-secondary">Ask Ticket Mate</a>
-        <a href="#visit" class="btn-primary">Book Tickets</a>
-      </div>
-
-      <button class="md:hidden menu-btn btn-secondary !px-4 !py-2">☰</button>
-    </nav>
-
-    <div class="mobile-menu hidden md:hidden flex-col gap-3 px-4 pt-4 pb-2">
-      <a href="#home" class="nav-link">Home</a>
-      <a href="#collection" class="nav-link">Collection</a>
-      <a href="#visit" class="nav-link">Plan Your Visit</a>
-      <a href="#events" class="nav-link">Events</a>
-      <a href="#contact" class="nav-link">Contact</a>
-      <div class="flex flex-col gap-3 pt-2">
-        <a href="#assistant" class="btn-secondary">Ask Ticket Mate</a>
-        <a href="#visit" class="btn-primary">Book Tickets</a>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <section id="home" class="hero">
-      <div class="container mx-auto px-4 hero-content">
-        <div class="eyebrow">Vintage Car Museum</div>
-        <h2>Discover the Golden Age of Motoring</h2>
-        <p>
-          Step into a curated world of iconic automobiles, timeless craftsmanship, and immersive stories from the road.
-          Explore legendary machines, plan your visit with ease, and get instant help from Ticket Mate.
-        </p>
-
-        <div class="flex flex-wrap gap-4">
-          <a href="#visit" class="btn-primary">Book Tickets</a>
-          <a href="#collection" class="btn-secondary">Explore Collection</a>
-        </div>
-
-        <div class="hero-stats fade-in">
-          <div class="stat-card">
-            <h4>50+</h4>
-            <p>Classic and collectible automobiles</p>
-          </div>
-          <div class="stat-card">
-            <h4>Daily</h4>
-            <p>Open museum access and guided tours</p>
-          </div>
-          <div class="stat-card">
-            <h4>3 Eras</h4>
-            <p>From elegant roadsters to muscle icons</p>
-          </div>
-          <div class="stat-card">
-            <h4>24/7</h4>
-            <p>Visitor support with Ticket Mate</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="quick-actions px-4">
-      <div class="container mx-auto quick-bar">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-          <a href="#visit" class="quick-item">
-            <h3 class="text-lg text-[var(--ivory)]">Book Tickets</h3>
-            <span>Reserve your museum visit</span>
-          </a>
-          <a href="#collection" class="quick-item">
-            <h3 class="text-lg text-[var(--ivory)]">View Exhibits</h3>
-            <span>See collection highlights</span>
-          </a>
-          <a href="#visit" class="quick-item">
-            <h3 class="text-lg text-[var(--ivory)]">Museum Hours</h3>
-            <span>Check timings and access</span>
-          </a>
-          <a href="#contact" class="quick-item">
-            <h3 class="text-lg text-[var(--ivory)]">Find Us</h3>
-            <span>Location and contact details</span>
-          </a>
-          <a href="#assistant" class="quick-item">
-            <h3 class="text-lg text-[var(--ivory)]">Ask Ticket Mate</h3>
-            <span>Get instant visitor help</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section-pad" id="about">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vintage Car Museum | Timeless Motion</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,700&family=Manrope:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="site-header">
       <div class="container mx-auto px-4">
-        <div class="grid lg:grid-cols-2 gap-8 items-stretch">
-          <div class="split-card fade-in min-h-[380px]">
-            <img
-              src="https://images.unsplash.com/photo-1489824904134-891ab64532f1?auto=format&fit=crop&w=1200&q=80"
-              alt="Museum interior with classic car"
-              class="image-fill"
-            />
-          </div>
-
-          <div class="fade-in flex flex-col justify-center">
-            <div class="eyebrow">About the Museum</div>
-            <h2 class="section-title">Where history meets craftsmanship</h2>
-            <p class="section-subtitle">
-              Our museum celebrates the beauty, engineering, and cultural legacy of vintage automobiles.
-              From post-war icons to performance legends, every exhibit is curated to tell the story of an era,
-              a design philosophy, and the spirit of motion that shaped generations.
-            </p>
-
-            <div class="mt-6">
-              <span class="feature-chip">Curated Collection</span>
-              <span class="feature-chip">Immersive Storytelling</span>
-              <span class="feature-chip">Guided Tours</span>
-              <span class="feature-chip">Visitor Assistant Support</span>
+        <nav class="nav-shell">
+          <a
+            href="#home"
+            class="brand-wrap"
+            aria-label="Vintage Car Museum home"
+          >
+            <div class="brand-mark">VC</div>
+            <div class="brand-text">
+              <h1 class="brand-title">Vintage Car Museum</h1>
+              <p class="brand-subtitle">Timeless Motion</p>
             </div>
+          </a>
 
-            <p class="muted mt-6">
-              Whether you are a collector, enthusiast, student, or first-time visitor, the museum offers
-              a refined and memorable journey through automotive heritage.
-            </p>
+          <ul class="desktop-nav">
+            <li><a href="#home" class="nav-link">Home</a></li>
+            <li><a href="#collection" class="nav-link">Collection</a></li>
+            <li><a href="#visit" class="nav-link">Plan Your Visit</a></li>
+            <li><a href="#events" class="nav-link">Events</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+          </ul>
+
+          <div class="desktop-actions">
+            <a href="#assistant" class="btn-secondary">Ask Ticket Mate</a>
+            <a href="#visit" class="btn-primary">Book Tickets</a>
+          </div>
+
+          <button
+            class="menu-btn"
+            id="menuBtn"
+            aria-label="Toggle mobile menu"
+            aria-expanded="false"
+            aria-controls="mobileMenu"
+            type="button"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </nav>
+      </div>
+
+      <div class="mobile-menu" id="mobileMenu">
+        <div class="container mx-auto px-4">
+          <div class="mobile-menu-panel">
+            <a href="#home" class="mobile-nav-link">Home</a>
+            <a href="#collection" class="mobile-nav-link">Collection</a>
+            <a href="#visit" class="mobile-nav-link">Plan Your Visit</a>
+            <a href="#events" class="mobile-nav-link">Events</a>
+            <a href="#contact" class="mobile-nav-link">Contact</a>
+
+            <div class="mobile-menu-actions">
+              <a href="#assistant" class="btn-secondary">Ask Ticket Mate</a>
+              <a href="#visit" class="btn-primary">Book Tickets</a>
+            </div>
           </div>
         </div>
       </div>
-    </section>
+    </header>
 
-    <section id="collection" class="section-pad">
-      <div class="container mx-auto px-4">
-        <div class="mb-10 fade-in">
-          <div class="eyebrow">Featured Collection</div>
-          <h2 class="section-title">Highlights from the collection</h2>
-          <p class="section-subtitle">
-            Discover some of the most admired names in automotive history, each chosen for its design,
-            influence, and enduring place in motoring culture.
+    <main>
+      <section id="home" class="hero">
+        <div class="container mx-auto px-4 hero-content">
+          <div class="eyebrow">Vintage Car Museum</div>
+          <h2>Discover the Golden Age of Motoring</h2>
+          <p>
+            Step into a curated world of iconic automobiles, timeless
+            craftsmanship, and immersive stories from the road. Explore
+            legendary machines, plan your visit with ease, and get instant help
+            from Ticket Mate.
           </p>
-        </div>
 
-        <div class="grid lg:grid-cols-12 gap-6">
-          <div class="lg:col-span-6 collection-card fade-in">
-            <img src="Car_1.jpg" alt="1957 Chevrolet Bel Air">
-            <div class="content">
-              <p class="label">American Classic</p>
-              <h3 class="text-3xl text-[var(--ivory)] mt-2">1957 Chevrolet Bel Air</h3>
-              <p class="muted mt-3">
-                A defining symbol of 1950s American optimism, chrome-rich styling, and expressive automotive design.
-              </p>
-              <a href="#assistant" class="btn-ghost mt-4">Hear its story →</a>
-            </div>
+          <div class="hero-actions">
+            <a href="#visit" class="btn-primary">Book Tickets</a>
+            <a href="#collection" class="btn-secondary">Explore Collection</a>
           </div>
 
-          <div class="lg:col-span-6 grid md:grid-cols-2 lg:grid-cols-1 gap-6">
-            <div class="collection-card fade-in">
-              <img src="Car_2.jpg" alt="1965 Ford Mustang">
-              <div class="content">
-                <p class="label">Performance Legend</p>
-                <h3 class="text-2xl text-[var(--ivory)] mt-2">1965 Ford Mustang</h3>
-                <p class="muted mt-3">
-                  The car that defined the pony car era with youthful energy, accessible performance, and unmistakable style.
-                </p>
-                <a href="#assistant" class="btn-ghost mt-4">Explore details →</a>
-              </div>
+          <div class="hero-stats fade-in">
+            <div class="stat-card">
+              <h4>50+</h4>
+              <p>Classic and collectible automobiles</p>
             </div>
-
-            <div class="collection-card fade-in">
-              <img src="Car_3.jpg" alt="1963 Jaguar E-Type">
-              <div class="content">
-                <p class="label">British Icon</p>
-                <h3 class="text-2xl text-[var(--ivory)] mt-2">1963 Jaguar E-Type</h3>
-                <p class="muted mt-3">
-                  Celebrated around the world for its elegance and engineering, the E-Type remains one of the most beautiful cars ever made.
-                </p>
-                <a href="#assistant" class="btn-ghost mt-4">Learn more →</a>
-              </div>
+            <div class="stat-card">
+              <h4>Daily</h4>
+              <p>Open museum access and guided tours</p>
+            </div>
+            <div class="stat-card">
+              <h4>3 Eras</h4>
+              <p>From elegant roadsters to muscle icons</p>
+            </div>
+            <div class="stat-card">
+              <h4>24/7</h4>
+              <p>Visitor support with Ticket Mate</p>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section-pad story-section">
-      <div class="container mx-auto px-4">
-        <div class="story-panel fade-in">
-          <div>
-            <div class="eyebrow">More Than Machines</div>
-            <blockquote>
-              Every automobile in our collection captures the character of its time —
-              from postwar elegance to the rise of speed, freedom, and performance culture.
-            </blockquote>
-            <p>
-              This museum is not just about vehicles. It is about the people who designed them,
-              the eras that shaped them, and the memories they continue to inspire.
-            </p>
+      <section class="quick-actions px-4">
+        <div class="container mx-auto quick-bar">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            <a href="#visit" class="quick-item">
+              <h3>Book Tickets</h3>
+              <span>Reserve your museum visit</span>
+            </a>
+            <a href="#collection" class="quick-item">
+              <h3>View Exhibits</h3>
+              <span>See collection highlights</span>
+            </a>
+            <a href="#visit" class="quick-item">
+              <h3>Museum Hours</h3>
+              <span>Check timings and access</span>
+            </a>
+            <a href="#contact" class="quick-item">
+              <h3>Find Us</h3>
+              <span>Location and contact details</span>
+            </a>
+            <a href="#assistant" class="quick-item">
+              <h3>Ask Ticket Mate</h3>
+              <span>Get instant visitor help</span>
+            </a>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="assistant" class="section-pad">
-      <div class="container mx-auto px-4">
-        <div class="grid lg:grid-cols-2 gap-8 items-center">
-          <div class="fade-in">
-            <div class="eyebrow">Museum Assistant</div>
-            <h2 class="section-title">Meet Ticket Mate</h2>
-            <p class="section-subtitle">
-              Ticket Mate is your digital visitor companion. Use it to get help with tickets,
-              opening hours, exhibit suggestions, directions, and quick museum questions.
-            </p>
-
-            <div class="grid sm:grid-cols-2 gap-4 mt-8">
-              <div class="assistant-mini">
-                <h3 class="text-xl text-[var(--ivory)] mb-2">What it can help with</h3>
-                <p class="muted">Ticket guidance, timings, contact details, exhibit discovery, and visitor support.</p>
-              </div>
-              <div class="assistant-mini">
-                <h3 class="text-xl text-[var(--ivory)] mb-2">Best way to use it</h3>
-                <p class="muted">Ask direct questions like “What are today’s hours?” or “Which cars are featured?”</p>
-              </div>
+      <section class="section-pad" id="about">
+        <div class="container mx-auto px-4">
+          <div class="grid lg:grid-cols-2 gap-8 items-stretch">
+            <div class="split-card fade-in museum-image-card">
+              <img
+                src="https://images.unsplash.com/photo-1489824904134-891ab64532f1?auto=format&fit=crop&w=1200&q=80"
+                alt="Museum interior with classic car"
+                class="image-fill"
+              />
             </div>
 
-            <div class="mt-8">
-              <a href="#contact" class="btn-secondary">View Contact Options</a>
-            </div>
-          </div>
-
-          <div class="assistant-panel p-6 fade-in">
-            <div class="assistant-mini">
-              <div class="assistant-bubble bot">Hello! I’m Ticket Mate. I can help you plan your visit.</div>
-              <div class="assistant-bubble user">What time does the museum open?</div>
-              <div class="assistant-bubble bot">We’re open daily, and I can also help you with tickets, exhibits, and directions.</div>
-              <div class="assistant-bubble user">Show me featured cars</div>
-              <div class="assistant-bubble bot">Start with the Bel Air, Mustang, and Jaguar E-Type in our highlights section.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="visit" class="section-pad">
-      <div class="container mx-auto px-4">
-        <div class="mb-10 fade-in">
-          <div class="eyebrow">Plan Your Visit</div>
-          <h2 class="section-title">Everything you need before you arrive</h2>
-          <p class="section-subtitle">
-            Find practical visitor information at a glance, from opening hours and location details
-            to group visits and museum assistance.
-          </p>
-        </div>
-
-        <div class="grid sm:grid-cols-2 xl:grid-cols-4 gap-6 plan-grid">
-          <div class="info-card fade-in">
-            <div class="icon-circle">🕒</div>
-            <h3 class="text-2xl text-[var(--ivory)] mb-2">Hours</h3>
-            <p class="muted">Open daily<br>10:00 AM – 6:00 PM</p>
-          </div>
-
-          <div class="info-card fade-in">
-            <div class="icon-circle">📍</div>
-            <h3 class="text-2xl text-[var(--ivory)] mb-2">Location</h3>
-            <p class="muted">123 Vintage Rd<br>Classic City, VC 12345</p>
-          </div>
-
-          <div class="info-card fade-in">
-            <div class="icon-circle">🎟️</div>
-            <h3 class="text-2xl text-[var(--ivory)] mb-2">Tickets</h3>
-            <p class="muted">General admission, student access, and group visit options available.</p>
-          </div>
-
-          <div class="info-card fade-in">
-            <div class="icon-circle">♿</div>
-            <h3 class="text-2xl text-[var(--ivory)] mb-2">Accessibility</h3>
-            <p class="muted">Visitor-friendly spaces with support for comfortable museum access.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="events" class="section-pad">
-      <div class="container mx-auto px-4">
-        <div class="mb-10 fade-in">
-          <div class="eyebrow">What’s On</div>
-          <h2 class="section-title">Events and special experiences</h2>
-          <p class="section-subtitle">
-            Keep the museum experience alive with curated events, collector conversations, and themed exhibitions.
-          </p>
-        </div>
-
-        <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6 events-grid">
-          <div class="event-card fade-in">
-            <div class="icon-circle">🏁</div>
-            <h3 class="text-2xl text-[var(--ivory)] mb-2">Legends of Speed</h3>
-            <p class="muted mb-4">A spotlight showcase on iconic performance cars and the era that made them unforgettable.</p>
-            <p class="label">This Month</p>
-          </div>
-
-          <div class="event-card fade-in">
-            <div class="icon-circle">🛠️</div>
-            <h3 class="text-2xl text-[var(--ivory)] mb-2">Restoration Stories</h3>
-            <p class="muted mb-4">An insider look at preservation, craftsmanship, and the care behind classic motoring history.</p>
-            <p class="label">Weekend Session</p>
-          </div>
-
-          <div class="event-card fade-in">
-            <div class="icon-circle">📷</div>
-            <h3 class="text-2xl text-[var(--ivory)] mb-2">Collector’s Gallery Tour</h3>
-            <p class="muted mb-4">A guided walkthrough of signature vehicles, design highlights, and cultural milestones.</p>
-            <p class="label">By Reservation</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section-pad">
-      <div class="container mx-auto px-4">
-        <div class="mb-10 fade-in">
-          <div class="eyebrow">Visitor Impressions</div>
-          <h2 class="section-title">What visitors remember most</h2>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-6 testimonials-grid">
-          <div class="testimonial-card fade-in">
-            <div class="quote-mark">“</div>
-            <p class="muted">
-              A beautifully presented collection. The atmosphere feels like stepping into an automotive time capsule.
-            </p>
-            <h4 class="text-xl text-[var(--ivory)] mt-4">— Museum Visitor</h4>
-          </div>
-
-          <div class="testimonial-card fade-in">
-            <div class="quote-mark">“</div>
-            <p class="muted">
-              The exhibit storytelling is excellent, and Ticket Mate made it easy to get quick information before our visit.
-            </p>
-            <h4 class="text-xl text-[var(--ivory)] mt-4">— First-Time Guest</h4>
-          </div>
-
-          <div class="testimonial-card fade-in">
-            <div class="quote-mark">“</div>
-            <p class="muted">
-              A premium experience from start to finish. The featured cars are stunning and thoughtfully curated.
-            </p>
-            <h4 class="text-xl text-[var(--ivory)] mt-4">— Classic Car Enthusiast</h4>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="section-pad">
-      <div class="container mx-auto px-4">
-        <div class="grid lg:grid-cols-2 gap-8">
-          <div class="contact-card fade-in">
-            <div class="eyebrow">Contact Us</div>
-            <h2 class="section-title">Get in touch</h2>
-            <p class="section-subtitle mb-8">
-              Reach out for visit planning, group bookings, museum information, or quick support through Ticket Mate.
-            </p>
-
-            <div class="space-y-6">
-              <div>
-                <p class="label mb-1">Address</p>
-                <p class="muted">123 Vintage Rd, Classic City, VC 12345</p>
-              </div>
-              <div>
-                <p class="label mb-1">Phone</p>
-                <p class="muted">6353918052</p>
-              </div>
-              <div>
-                <p class="label mb-1">Email</p>
-                <p class="muted">meethp04@gmail.com</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="contact-card fade-in flex flex-col justify-between">
-            <div>
-              <div class="eyebrow">Need Quick Help?</div>
-              <h2 class="section-title">Use Ticket Mate anytime</h2>
+            <div class="fade-in flex flex-col justify-center">
+              <div class="eyebrow">About the Museum</div>
+              <h2 class="section-title">Where history meets craftsmanship</h2>
               <p class="section-subtitle">
-                For fast answers about tickets, timings, exhibits, or directions, use the Voiceflow-powered assistant available on the page.
+                Our museum celebrates the beauty, engineering, and cultural
+                legacy of vintage automobiles. From post-war icons to
+                performance legends, every exhibit is curated to tell the story
+                of an era, a design philosophy, and the spirit of motion that
+                shaped generations.
+              </p>
+
+              <div class="mt-6">
+                <span class="feature-chip">Curated Collection</span>
+                <span class="feature-chip">Immersive Storytelling</span>
+                <span class="feature-chip">Guided Tours</span>
+                <span class="feature-chip">Visitor Assistant Support</span>
+              </div>
+
+              <p class="muted mt-6">
+                Whether you are a collector, enthusiast, student, or first-time
+                visitor, the museum offers a refined and memorable journey
+                through automotive heritage.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="collection" class="section-pad">
+        <div class="container mx-auto px-4">
+          <div class="mb-10 fade-in">
+            <div class="eyebrow">Featured Collection</div>
+            <h2 class="section-title">Highlights from the collection</h2>
+            <p class="section-subtitle">
+              Discover some of the most admired names in automotive history,
+              each chosen for its design, influence, and enduring place in
+              motoring culture.
+            </p>
+          </div>
+
+          <div class="grid lg:grid-cols-2 gap-6 items-start">
+            <div class="collection-card collection-card-large fade-in">
+              <img src="assets/Car_1.jpg" alt="1957 Chevrolet Bel Air" />
+              <div class="content">
+                <p class="label">American Classic</p>
+                <h3>1957 Chevrolet Bel Air</h3>
+                <p class="muted mt-3">
+                  A defining symbol of 1950s American optimism, chrome-rich
+                  styling, and expressive automotive design.
+                </p>
+                <a href="#assistant" class="btn-ghost mt-4">Hear its story →</a>
+              </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-1 gap-6">
+              <div class="collection-card fade-in">
+                <img src="assets/Car_2.jpg" alt="1965 Ford Mustang" />
+                <div class="content">
+                  <p class="label">Performance Legend</p>
+                  <h3>1965 Ford Mustang</h3>
+                  <p class="muted mt-3">
+                    The car that defined the pony car era with youthful energy,
+                    accessible performance, and unmistakable style.
+                  </p>
+                  <a href="#assistant" class="btn-ghost mt-4"
+                    >Explore details →</a
+                  >
+                </div>
+              </div>
+
+              <div class="collection-card fade-in">
+                <img src="assets/Car_3.jpg" alt="1963 Jaguar E-Type" />
+                <div class="content">
+                  <p class="label">British Icon</p>
+                  <h3>1963 Jaguar E-Type</h3>
+                  <p class="muted mt-3">
+                    Celebrated around the world for its elegance and
+                    engineering, the E-Type remains one of the most beautiful
+                    cars ever made.
+                  </p>
+                  <a href="#assistant" class="btn-ghost mt-4">Learn more →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-pad story-section">
+        <div class="container mx-auto px-4">
+          <div class="story-panel fade-in">
+            <div>
+              <div class="eyebrow">More Than Machines</div>
+              <blockquote>
+                Every automobile in our collection captures the character of its
+                time — from postwar elegance to the rise of speed, freedom, and
+                performance culture.
+              </blockquote>
+              <p>
+                This museum is not just about vehicles. It is about the people
+                who designed them, the eras that shaped them, and the memories
+                they continue to inspire.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="assistant" class="section-pad">
+        <div class="container mx-auto px-4">
+          <div class="grid lg:grid-cols-2 gap-8 items-center">
+            <div class="fade-in">
+              <div class="eyebrow">Museum Assistant</div>
+              <h2 class="section-title">Meet Ticket Mate</h2>
+              <p class="section-subtitle">
+                Ticket Mate is your digital visitor companion. Use it to get
+                help with tickets, opening hours, exhibit suggestions,
+                directions, and quick museum questions.
+              </p>
+
+              <div class="grid sm:grid-cols-2 gap-4 mt-8">
+                <div class="assistant-mini">
+                  <h3>What it can help with</h3>
+                  <p class="muted">
+                    Ticket guidance, timings, contact details, exhibit
+                    discovery, and visitor support.
+                  </p>
+                </div>
+                <div class="assistant-mini">
+                  <h3>Best way to use it</h3>
+                  <p class="muted">
+                    Ask direct questions like “What are today’s hours?” or
+                    “Which cars are featured?”
+                  </p>
+                </div>
+              </div>
+
+              <div class="mt-8">
+                <a href="#contact" class="btn-secondary"
+                  >View Contact Options</a
+                >
+              </div>
+            </div>
+
+            <div class="assistant-panel p-6 fade-in">
+              <div class="assistant-mini">
+                <div class="assistant-bubble bot">
+                  Hello! I’m Ticket Mate. I can help you plan your visit.
+                </div>
+                <div class="assistant-bubble user">
+                  What time does the museum open?
+                </div>
+                <div class="assistant-bubble bot">
+                  We’re open daily, and I can also help you with tickets,
+                  exhibits, and directions.
+                </div>
+                <div class="assistant-bubble user">Show me featured cars</div>
+                <div class="assistant-bubble bot">
+                  Start with the Bel Air, Mustang, and Jaguar E-Type in our
+                  highlights section.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="visit" class="section-pad">
+        <div class="container mx-auto px-4">
+          <div class="mb-10 fade-in">
+            <div class="eyebrow">Plan Your Visit</div>
+            <h2 class="section-title">Everything you need before you arrive</h2>
+            <p class="section-subtitle">
+              Find practical visitor information at a glance, from opening hours
+              and location details to group visits and museum assistance.
+            </p>
+          </div>
+
+          <div class="grid sm:grid-cols-2 xl:grid-cols-4 gap-6 plan-grid">
+            <div class="info-card fade-in">
+              <div class="icon-circle">🕒</div>
+              <h3>Hours</h3>
+              <p class="muted">Open daily<br />10:00 AM – 6:00 PM</p>
+            </div>
+
+            <div class="info-card fade-in">
+              <div class="icon-circle">📍</div>
+              <h3>Location</h3>
+              <p class="muted">123 Vintage Rd<br />Classic City, VC 12345</p>
+            </div>
+
+            <div class="info-card fade-in">
+              <div class="icon-circle">🎟️</div>
+              <h3>Tickets</h3>
+              <p class="muted">
+                General admission, student access, and group visit options
+                available.
               </p>
             </div>
 
-            <div class="grid sm:grid-cols-2 gap-4 mt-8">
-              <div class="assistant-mini">
-                <h3 class="text-xl text-[var(--ivory)] mb-2">Best for</h3>
-                <p class="muted">Opening hours, featured cars, basic visitor details, and quick museum guidance.</p>
+            <div class="info-card fade-in">
+              <div class="icon-circle">♿</div>
+              <h3>Accessibility</h3>
+              <p class="muted">
+                Visitor-friendly spaces with support for comfortable museum
+                access.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="events" class="section-pad">
+        <div class="container mx-auto px-4">
+          <div class="mb-10 fade-in">
+            <div class="eyebrow">What’s On</div>
+            <h2 class="section-title">Events and special experiences</h2>
+            <p class="section-subtitle">
+              Keep the museum experience alive with curated events, collector
+              conversations, and themed exhibitions.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6 events-grid">
+            <div class="event-card fade-in">
+              <div class="icon-circle">🏁</div>
+              <h3>Legends of Speed</h3>
+              <p class="muted mb-4">
+                A spotlight showcase on iconic performance cars and the era that
+                made them unforgettable.
+              </p>
+              <p class="label">This Month</p>
+            </div>
+
+            <div class="event-card fade-in">
+              <div class="icon-circle">🛠️</div>
+              <h3>Restoration Stories</h3>
+              <p class="muted mb-4">
+                An insider look at preservation, craftsmanship, and the care
+                behind classic motoring history.
+              </p>
+              <p class="label">Weekend Session</p>
+            </div>
+
+            <div class="event-card fade-in">
+              <div class="icon-circle">📷</div>
+              <h3>Collector’s Gallery Tour</h3>
+              <p class="muted mb-4">
+                A guided walkthrough of signature vehicles, design highlights,
+                and cultural milestones.
+              </p>
+              <p class="label">By Reservation</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-pad">
+        <div class="container mx-auto px-4">
+          <div class="mb-10 fade-in">
+            <div class="eyebrow">Visitor Impressions</div>
+            <h2 class="section-title">What visitors remember most</h2>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-6 testimonials-grid">
+            <div class="testimonial-card fade-in">
+              <div class="quote-mark">“</div>
+              <p class="muted">
+                A beautifully presented collection. The atmosphere feels like
+                stepping into an automotive time capsule.
+              </p>
+              <h4>— Museum Visitor</h4>
+            </div>
+
+            <div class="testimonial-card fade-in">
+              <div class="quote-mark">“</div>
+              <p class="muted">
+                The exhibit storytelling is excellent, and Ticket Mate made it
+                easy to get quick information before our visit.
+              </p>
+              <h4>— First-Time Guest</h4>
+            </div>
+
+            <div class="testimonial-card fade-in">
+              <div class="quote-mark">“</div>
+              <p class="muted">
+                A premium experience from start to finish. The featured cars are
+                stunning and thoughtfully curated.
+              </p>
+              <h4>— Classic Car Enthusiast</h4>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="section-pad">
+        <div class="container mx-auto px-4">
+          <div class="grid lg:grid-cols-2 gap-8">
+            <div class="contact-card fade-in">
+              <div class="eyebrow">Contact Us</div>
+              <h2 class="section-title">Get in touch</h2>
+              <p class="section-subtitle mb-8">
+                Reach out for visit planning, group bookings, museum
+                information, or quick support through Ticket Mate.
+              </p>
+
+              <div class="space-y-6">
+                <div>
+                  <p class="label mb-1">Address</p>
+                  <p class="muted">123 Vintage Rd, Classic City, VC 12345</p>
+                </div>
+                <div>
+                  <p class="label mb-1">Phone</p>
+                  <p class="muted">6353918052</p>
+                </div>
+                <div>
+                  <p class="label mb-1">Email</p>
+                  <p class="muted">meethp04@gmail.com</p>
+                </div>
               </div>
-              <div class="assistant-mini">
-                <h3 class="text-xl text-[var(--ivory)] mb-2">Also useful for</h3>
-                <p class="muted">Helping first-time visitors understand what to explore and how to plan their visit.</p>
+            </div>
+
+            <div class="contact-card fade-in flex flex-col justify-between">
+              <div>
+                <div class="eyebrow">Need Quick Help?</div>
+                <h2 class="section-title">Use Ticket Mate anytime</h2>
+                <p class="section-subtitle">
+                  For fast answers about tickets, timings, exhibits, or
+                  directions, use the Voiceflow-powered assistant available on
+                  the page.
+                </p>
+              </div>
+
+              <div class="grid sm:grid-cols-2 gap-4 mt-8">
+                <div class="assistant-mini">
+                  <h3>Best for</h3>
+                  <p class="muted">
+                    Opening hours, featured cars, basic visitor details, and
+                    quick museum guidance.
+                  </p>
+                </div>
+                <div class="assistant-mini">
+                  <h3>Also useful for</h3>
+                  <p class="muted">
+                    Helping first-time visitors understand what to explore and
+                    how to plan their visit.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-  </main>
+      </section>
+    </main>
 
-  <!-- Voiceflow Chatbot Integration -->
-  <div class="chat-widget">
-    <script type="text/javascript">
-      (function(d, t) {
-          var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
-          v.onload = function() {
+    <!-- Voiceflow Chatbot Integration -->
+    <div class="chat-widget">
+      <script type="text/javascript">
+        (function (d, t) {
+          var v = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+          v.onload = function () {
             window.voiceflow.chat.load({
-              verify: { projectID: '69bc1020e91593df92b9af24' },
-              url: 'https://general-runtime.voiceflow.com',
-              versionID: 'production',
+              verify: { projectID: "69bc1020e91593df92b9af24" },
+              url: "https://general-runtime.voiceflow.com",
+              versionID: "production",
               voice: {
-                url: "https://runtime-api.voiceflow.com"
-              }
+                url: "https://runtime-api.voiceflow.com",
+              },
             });
-          }
-          v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
-      })(document, 'script');
-    </script>
-  </div>
-
-  <footer class="py-10">
-    <div class="container mx-auto px-4">
-      <div class="grid md:grid-cols-4 gap-8 mb-8">
-        <div>
-          <h3 class="text-2xl text-[var(--ivory)] mb-3">Vintage Car Museum</h3>
-          <p class="muted">Preserving the elegance, innovation, and spirit of automotive history.</p>
-        </div>
-
-        <div>
-          <h4 class="text-xl text-[var(--ivory)] mb-3">Explore</h4>
-          <div class="space-y-2">
-            <a href="#home" class="footer-link block">Home</a>
-            <a href="#collection" class="footer-link block">Collection</a>
-            <a href="#events" class="footer-link block">Events</a>
-          </div>
-        </div>
-
-        <div>
-          <h4 class="text-xl text-[var(--ivory)] mb-3">Visit</h4>
-          <div class="space-y-2">
-            <a href="#visit" class="footer-link block">Plan Your Visit</a>
-            <a href="#assistant" class="footer-link block">Ticket Mate</a>
-            <a href="#contact" class="footer-link block">Contact</a>
-          </div>
-        </div>
-
-        <div>
-          <h4 class="text-xl text-[var(--ivory)] mb-3">Contact</h4>
-          <p class="muted">123 Vintage Rd<br>Classic City, VC 12345</p>
-          <p class="muted mt-2">6353918052</p>
-          <p class="muted">meethp04@gmail.com</p>
-        </div>
-      </div>
-
-      <div class="border-t border-white/10 pt-6 text-center">
-        <p class="text-sm text-[var(--muted)]">&copy; 2023 Vintage Car Museum. All rights reserved.</p>
-      </div>
+          };
+          v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
+          v.type = "text/javascript";
+          s.parentNode.insertBefore(v, s);
+        })(document, "script");
+      </script>
     </div>
-  </footer>
 
-  <script>
-    // Scroll animation
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, {
-      threshold: 0.1
-    });
+    <footer class="site-footer py-10">
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-8 mb-8">
+          <div>
+            <h3 class="footer-title">Vintage Car Museum</h3>
+            <p class="muted">
+              Preserving the elegance, innovation, and spirit of automotive
+              history.
+            </p>
+          </div>
 
-    document.querySelectorAll('.fade-in').forEach(el => {
-      observer.observe(el);
-    });
+          <div>
+            <h4 class="footer-heading">Explore</h4>
+            <div class="space-y-2">
+              <a href="#home" class="footer-link block">Home</a>
+              <a href="#collection" class="footer-link block">Collection</a>
+              <a href="#events" class="footer-link block">Events</a>
+            </div>
+          </div>
 
-    // Mobile menu toggle
-    const menuBtn = document.querySelector('.menu-btn');
-    const mobileMenu = document.querySelector('.mobile-menu');
+          <div>
+            <h4 class="footer-heading">Visit</h4>
+            <div class="space-y-2">
+              <a href="#visit" class="footer-link block">Plan Your Visit</a>
+              <a href="#assistant" class="footer-link block">Ticket Mate</a>
+              <a href="#contact" class="footer-link block">Contact</a>
+            </div>
+          </div>
 
-    menuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-      mobileMenu.classList.toggle('show');
-    });
-  </script>
-</body>
+          <div>
+            <h4 class="footer-heading">Contact</h4>
+            <p class="muted">123 Vintage Rd<br />Classic City, VC 12345</p>
+            <p class="muted mt-2">6353918052</p>
+            <p class="muted">meethp04@gmail.com</p>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2023 Vintage Car Museum. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
 </html>
